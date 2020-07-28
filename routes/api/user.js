@@ -4,7 +4,6 @@ const bcrypt = require('bcryptjs');
 const gravatar = require('gravatar');
 const jwt = require('jsonwebtoken');
 const config = require('config');
-
 const { check, validationResult } = require('express-validator');
 
 const router = express.Router();
@@ -69,7 +68,7 @@ router.post(
 				},
 			);
 		} catch (error) {
-			console.log(`some error happened while registering te user with msg ${error.message}`);
+			console.log(`some error happened while registering the user with msg ${error.message}`);
 			return res.status(500).send('something went wrong while registering the user');
 		}
 	},
