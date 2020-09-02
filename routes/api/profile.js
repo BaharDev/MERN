@@ -5,6 +5,7 @@ const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
 const request = require('request');
 const config = require('config');
+const Post = require('../../models/Post');
 
 const router = express.Router();
 
@@ -22,9 +23,10 @@ router.get('/current', auth, async (req, res) => {
 		}
 
 		res.json(profile);
+		return next();
 	} catch (err) {
 		console.error(err.message);
-		res.send.status(500).json('server error');
+		res.status(500).json('server error');
 	}
 });
 
@@ -65,8 +67,8 @@ router.post(
 		if (company) userProfile.company = company;
 		if (githubUserName) userProfile.githubUserName = githubUserName;
 		if (education) userProfile.education = education;
+		if (location) userProfile.location = location;
 		userProfile.social = {};
-		if (location) userProfile.social.location = location;
 		if (youtube) userProfile.social.youtube = youtube;
 		if (facebook) userProfile.social.facebook = facebook;
 		if (twitter) userProfile.social.twitter = twitter;
@@ -85,6 +87,7 @@ router.post(
 			await profile.save();
 
 			res.json(profile);
+			return next();
 		} catch (err) {
 			console.error(err.message);
 			res.status(500).json('server error');
@@ -98,7 +101,7 @@ router.post(
  */
 router.get('/', async (req, res) => {
 	try {
-		const profiles = await Profile.find().populate('user', [ 'name', 'avatar' ]);
+		const profiles = await Profile.find().populate('user', [ 'name', 'avatar', 'email' ]);
 		res.json(profiles);
 	} catch (err) {
 		console.log(err.message);
@@ -112,14 +115,15 @@ router.get('/', async (req, res) => {
  */
 router.get('/user/:user_id', async (req, res) => {
 	try {
-		const profile = await Profile.findOne({ user: req.params.user_id }).populate('user', [ 'name', 'avatar' ]);
+		const profile = await Profile.findOne({ user: req.params.user_id }).populate('user', [ 'name', 'avatar', 'email' ]);
 
 		if (!profile) {
 			res.status(400).json({ msg: 'profile not found' });
 		}
 		res.json(profile);
+		return next();
 	} catch (err) {
-		console.log(err.message);
+		console.log(err);
 		if (err.kind === 'ObjectId') {
 			return res.status(400).json({ msg: 'profile not found' });
 		}
@@ -135,6 +139,7 @@ router.get('/user/:user_id', async (req, res) => {
  */
 router.delete('/', auth, async (req, res) => {
 	try {
+		await Post.deleteMany({user: req.user.id });
 		await Profile.findOneAndDelete({ user: req.user.id });
 		await User.findOneAndDelete({ _id: req.user.id });
 
@@ -176,6 +181,7 @@ router.put(
 				await profile.save();
 
 				res.json(profile);
+				return next();
 			}
 
 			return res.status(400).json({ msg: 'Profile not found' });
@@ -204,7 +210,8 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
 				return res.status(400).json({ msg: 'Experience not found' });
 			}
 
-			return res.json(profile);
+			res.json(profile);
+			return next();
 		}
 
 		return res.status(400).json({ msg: 'Profile not found' });
@@ -216,7 +223,7 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
 
 /**
  * route   PUT api/profile/education
- * desc    create/update profile education
+ * desc    create profile education
  * access  Private
  */
 router.put(
@@ -245,6 +252,7 @@ router.put(
 				await profile.save();
 
 				res.json(profile);
+				return next();
 			}
 
 			return res.status(400).json({ msg: 'Profile not found' });
@@ -274,6 +282,7 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
 			}
 
 			res.json(profile);
+			return next();
 		}
 
 		return res.status(400).json({ msg: 'Profile not found' });
@@ -291,16 +300,17 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
 router.get('/github/:username', async (req, res) => {
 	try {
 		const options = {
-			uri: `https://api.github.com/users/${req.params.username}/repos?per_page=5?sort=created:asc&client_id=${config.get('githubClientId')}&client_secret=${config.get('githubClientSecret')}`,
+			uri: `https://api.github.com/users/BaharDev/repos?per_page=5?sort=created:asc`,
 			method: 'GET',
-			headers: { "user_agent": 'node.js' },
+			headers: { 'User-Agent': 'node.js' },
 		};
 		request(options, (error, response, body) => {
-			if(error) console.log(error);
+			if (error) console.log(error);
 			if (response.statusCode !== 200) {
 				return res.status(404).json({ msg: 'Github Profile not found' });
 			}
-			return res.json(body);
+
+			res.json(body);
 		});
 	} catch (err) {
 		console.error(err.message);

@@ -12,11 +12,16 @@ import { authActions } from './actions/auth';
 import { setAuthToken } from './api/config';
 import PrivateRoute from './components/routing/PrivateRoute';
 import Dashboard from './components/dashboard/Dashboard';
-import { getToken } from './helprs/getToken';
+import { tokenManager } from './helpers/tokenManager';
+import UpsertProfile from './components/dashboard/UpsertProfile';
+import CreateExperience from './components/dashboard/CreateExperience';
+import CreateEducation from './components/dashboard/CreateEducation';
+import Profiles from './components/profile/Profiles';
+import {UserProfile} from './components/profile/UserProfile';
 
-const token = getToken();
-setAuthToken(token);
 const App = () => {
+	const token = tokenManager.getToken();
+	setAuthToken(token);
 	useEffect(() => {
 		//@ts-ignore
 		store.dispatch(authActions.loadUser());
@@ -31,7 +36,13 @@ const App = () => {
 						<Switch>
 							<Route exact path="/login" component={Login} />
 							<Route exact path="/register" component={Register} />
+							<Route exact path="/profiles" component={Profiles} />
+							<Route exact path="/user-profile/:id" component={UserProfile} />
 							<PrivateRoute exact path="/dashboard" component={Dashboard} />
+							<PrivateRoute exact path="/create-profile" component={UpsertProfile} />
+							<PrivateRoute exact path="/edit-profile" component={UpsertProfile} />
+							<PrivateRoute exact path="/create-experience" component={CreateExperience} />
+							<PrivateRoute exact path="/create-education" component={CreateEducation} />
 						</Switch>
 						<Alert />
 					</div>

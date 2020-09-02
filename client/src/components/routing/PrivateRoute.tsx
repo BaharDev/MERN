@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { authActions } from '../../actions/auth';
 
 const PrivateRoute: React.FC<any> = ({ component: Component, auth: { isAuthenticated, isLoading }, ...rest }) => {
-	console.log(isAuthenticated)
 	return (
 		<Route
 			{...rest}

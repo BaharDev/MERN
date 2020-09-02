@@ -1,7 +1,19 @@
-import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Fragment, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { authActions } from '../../actions/auth';
 
-export const Landing = () => {
+export type TLanding = {
+	isAuthenticated: boolean;
+};
+
+export const Landing: React.FC<TLanding> = ({ isAuthenticated }) => {
+	const history = useHistory();
+	useEffect(() => {
+		if (isAuthenticated) {
+			history.push('/dashboard');
+		}
+	}, []);
 	return (
 		<Fragment>
 			<section className="landing">
@@ -12,8 +24,12 @@ export const Landing = () => {
 							Create a developer profile/portfolio, share posts and get help from other developers
 						</p>
 						<div className="buttons">
-							<Link className="btn btn-primary" to="/register">Register</Link>
-							<Link className="btn btn-light" to="/login">Login</Link>
+							<Link className="btn btn-primary" to="/register">
+								Register
+							</Link>
+							<Link className="btn btn-light" to="/login">
+								Login
+							</Link>
 						</div>
 					</div>
 				</div>
@@ -21,3 +37,9 @@ export const Landing = () => {
 		</Fragment>
 	);
 };
+
+const mapStateToProps = (state) => ({
+	isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { ...authActions })(Landing);

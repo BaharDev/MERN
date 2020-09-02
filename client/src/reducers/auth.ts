@@ -1,6 +1,6 @@
 import { ActionMessage } from '../actions/alert';
 import { ActionType } from '../actions/actionType';
-import { getToken } from '../helprs/getToken';
+import { tokenManager } from '../helpers/tokenManager';
 
 export type Auth = {
 	token?: any;
@@ -9,7 +9,7 @@ export type Auth = {
 	isLoading: boolean;
 };
 const initialState: Auth = {
-	token: getToken(),
+	token: tokenManager.getToken(),
 	user: null,
 	isAuthenticated: false,
 	isLoading: true,
@@ -19,11 +19,7 @@ export const authReducer = (state: Auth = initialState, action: ActionMessage) =
 	switch (type) {
 		case ActionType.LOGIN_SUCCESS:
 		case ActionType.REGISTER_SUCCESS:
-			const item = {
-				value: payLoad.token,
-				expiry: new Date().getTime() + 360000,
-			};
-			localStorage.setItem('token', JSON.stringify(item));
+			tokenManager.setToken(payLoad.token);
 			return {
 				...state,
 				...payLoad,

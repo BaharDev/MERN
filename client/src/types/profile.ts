@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
 export type Experience = {
-  id: any;
+  _id: any;
 	title: string;
 	company: string;
 	location: string;
@@ -12,7 +12,7 @@ export type Experience = {
 };
 
 export type Education = {
-  id: any;
+  _id: any;
 	school: string;
 	fieldOfStudy: string;
 	degree: string;
@@ -29,8 +29,17 @@ export type Social = {
 	twitter?: string;
 };
 
+export type User = {
+	 name: string;
+	avatar: string;
+	email: string;
+	_id: unknown;
+}
+
 export type Profile = {
-  userId: any;
+	userId: any;
+	_id: any;
+	user: User,
   name: string;
   avatar: string;
 	company: string;

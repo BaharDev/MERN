@@ -20,12 +20,11 @@ const Navbar: React.SFC<NavbarProps> = (props) => {
 	return (
 		<nav className="navbar bg-dark">
 			<h1>
-				<Link to="/landing" />
+				<Link to="/landing" >DevConnector</Link>
 			</h1>
 			<ul>
-				<li>
-					<a href="profiles.html">Developers</a>
-				</li>
+				<li>	<Link to="/profiles">Developers</Link></li>
+			
 				
 				{isAuthenticated ? (
 					<>
@@ -35,7 +34,7 @@ const Navbar: React.SFC<NavbarProps> = (props) => {
 					</Link>
 					</li>
 					<li>
-						<a href="javascript(0);" onClick={onLoggingUserOut} style={{ cursor: 'pointer' }}>
+						<a href="javascript:void(0);" onClick={onLoggingUserOut} style={{ cursor: 'pointer' }}>
 							Logout
 						</a>
 					</li>

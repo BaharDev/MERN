@@ -2,7 +2,7 @@ import { alertActions } from './alert';
 import { userApi } from './../api/auth';
 import { ActionType } from './actionType';
 import { setAuthToken } from '../api/config';
-import { getToken } from './../helprs/getToken';
+import { tokenManager } from '../helpers/tokenManager';
 
 export type AuthAction = {
 	loadUser(): (dispatch) => Promise<void>;
@@ -20,7 +20,8 @@ export const authActions: AuthAction = {
 	loadUser: () => {
 		return async (dispatch) => {
 			try {
-				const token = getToken();
+				const token = tokenManager.getToken();
+				if(!token) return;
 				setAuthToken(token);
 				const res = await userApi.getUser();
 				dispatch({
@@ -94,6 +95,7 @@ export const authActions: AuthAction = {
 	},
 	logoutUser: () => {
 		return async (dispatch) => {
+			dispatch(alertActions.removeAlerts());
 			dispatch({
 				type: ActionType.LOGOUT_SUCCESS,
 				payLoad: null,
