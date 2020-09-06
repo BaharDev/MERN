@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { yupResolver } from '@hookform/resolvers';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { alertActions, ActionMessage } from '../../actions/alert';
 import { profileActions } from '../../actions/profile';
-import { Education, Experience } from '../../types/profile';
+import { Experience } from '../../types/profile';
 
 export type TCreateExperience = {
 	removeAlerts(): ActionMessage;
@@ -53,15 +53,15 @@ const CreateExperience: React.FC<TCreateExperience> = (props) => {
 			<form className="form" onSubmit={handleSubmit(onHandleSubmit)}>
 				<div className="form-group">
 					<input type="text" placeholder="* Job Title" name="title" ref={register} />
-					{errors.title && <p className="error">{errors.title}</p>}
+					{errors.title && <p className="error">{errors.title.message}</p>}
 				</div>
 				<div className="form-group">
 					<input type="text" placeholder="* Company" name="company" ref={register} />
-					{errors.company && <p className="error">{errors.company}</p>}
+					{errors.company && <p className="error">{errors.company.message}</p>}
 				</div>
 				<div className="form-group">
 					<input type="text" placeholder="* Location" name="location" ref={register} />
-					{errors.location && <p className="error">{errors.location}</p>}
+					{errors.location && <p className="error">{errors.location.message}</p>}
 				</div>
 				<div className="form-group">
 					<h4>From Date</h4>

@@ -13,7 +13,7 @@ export const Landing: React.FC<TLanding> = ({ isAuthenticated }) => {
 		if (isAuthenticated) {
 			history.push('/dashboard');
 		}
-	}, []);
+	}, [isAuthenticated, history]);
 	return (
 		<Fragment>
 			<section className="landing">

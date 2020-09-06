@@ -8,19 +8,22 @@ import { ViewEducation } from './ViewEducation';
 import { ViewExperience } from './ViewExperience';
 import { DashboardActions } from './DashboardActions';
 import ConfirmationModal, { DELETEType } from '../ConfirmationModal';
+import { authActions } from '../../actions/auth';
 
 type DashboardProps = {
 	profile: ProfileState;
 	auth: Auth;
 	getCurrentProfile(): Promise<void>;
+	loadUser(): Promise<void>;
 };
 const Dashboard: React.FC<DashboardProps> = (props) => {
-	const { profile: { profile, isLoading }, auth: { user }, getCurrentProfile } = props;
+	const { profile: { profile, isLoading }, auth: { user }, getCurrentProfile, loadUser } = props;
 	const [ isModalOpen, setIsModalOpen ] = useState<boolean>(false);
 
 	useEffect(() => {
+		loadUser();
 		getCurrentProfile();
-	}, []);
+	}, [getCurrentProfile]);
 	const deleteAction = () => {
 		setIsModalOpen(true);
 	};
@@ -32,7 +35,7 @@ const Dashboard: React.FC<DashboardProps> = (props) => {
 				<section className="container">
 					<h1 className="large text-primary">Dashboard</h1>
 					<p className="lead">
-						<i className="fas fa-user" /> Welcome {user.name}
+						<i className="fas fa-user" /> Welcome {user && user.name}
 					</p>
 					<DashboardActions profile={profile} />
 					{profile && profile.experience.length > 0 && <ViewExperience experience={profile.experience} />}
@@ -57,4 +60,4 @@ const mapStateToProps = (state) => ({
 	auth: state.auth,
 });
 
-export default connect(mapStateToProps, { ...profileActions })(Dashboard);
+export default connect(mapStateToProps, { ...profileActions,...authActions })(Dashboard);

@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Experience, Profile } from '../../types/profile';
+import { Experience } from '../../types/profile';
 import Moment from 'react-moment';
 import ConfirmationModal, { DELETEType } from '../ConfirmationModal';
 

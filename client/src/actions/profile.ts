@@ -8,13 +8,14 @@ export type ProfileAction = {
 	getCurrentProfile(): (dispatch) => Promise<void>;
 	getProfileById(id: unknown): (dispatch) => Promise<void>;
 	getProfiles(): (dispatch) => Promise<void>;
-	getRepos(userName:string): (dispatch) => Promise<void>;
+	getRepos(userName: string): (dispatch) => Promise<void>;
 	upsertProfile(profile: Profile, isEdit: boolean, history: any): (dispatch) => Promise<void>;
 	createEducation(education: Education, history: any): (dispatch) => Promise<void>;
 	createExperience(experience: Experience, history: any): (dispatch) => Promise<void>;
 	deleteEducation(id: any, history: any): (dispatch) => Promise<void>;
 	deleteExperience(id: any, history: any): (dispatch) => Promise<void>;
 	deleteProfile(history: any): (dispatch) => Promise<void>;
+	clearProfile(): (dispatch) => void;
 };
 
 export type ProfileActionMessage = {
@@ -29,15 +30,15 @@ export const profileActions: ProfileAction = {
 				const res = await profileApi.getCurrentProfile();
 				dispatch({
 					type: ActionType.GET_PROFILE,
-					payLoad: res.data,
+					payLoad: res.data
 				});
 			} catch (err) {
 				dispatch({
 					type: ActionType.PROFILE_FAIL,
 					payLoad: {
 						msg: err.response.statusText,
-						status: err.response.status,
-					},
+						status: err.response.status
+					}
 				});
 			}
 		};
@@ -48,15 +49,15 @@ export const profileActions: ProfileAction = {
 				const res = await profileApi.getProfileById(id);
 				dispatch({
 					type: ActionType.GET_PROFILE,
-					payLoad: res.data,
+					payLoad: res.data
 				});
 			} catch (err) {
 				dispatch({
 					type: ActionType.PROFILE_FAIL,
 					payLoad: {
 						msg: err.response.statusText,
-						status: err.response.status,
-					},
+						status: err.response.status
+					}
 				});
 			}
 		};
@@ -67,15 +68,15 @@ export const profileActions: ProfileAction = {
 				const res = await profileApi.getProfiles();
 				dispatch({
 					type: ActionType.GET_PROFILES,
-					payLoad: res.data,
+					payLoad: res.data
 				});
 			} catch (err) {
 				dispatch({
 					type: ActionType.PROFILES_FAIL,
 					payLoad: {
 						msg: err.response.statusText,
-						status: err.response.status,
-					},
+						status: err.response.status
+					}
 				});
 			}
 		};
@@ -86,15 +87,15 @@ export const profileActions: ProfileAction = {
 				const res = await profileApi.getRepos(userName);
 				dispatch({
 					type: ActionType.GET_REPOS,
-					payLoad: res.data,
+					payLoad: res.data
 				});
 			} catch (err) {
 				dispatch({
 					type: ActionType.REPOS_FAIL,
 					payLoad: {
 						msg: err.response.statusText,
-						status: err.response.status,
-					},
+						status: err.response.status
+					}
 				});
 			}
 		};
@@ -105,7 +106,7 @@ export const profileActions: ProfileAction = {
 				const res = await profileApi.upsertProfile(profile);
 				dispatch({
 					type: ActionType.GET_PROFILE,
-					payLoad: res.data,
+					payLoad: res.data
 				});
 
 				dispatch(alertActions.setAlert(isEdit ? 'Profile Updated' : 'Profile Created', 'success'));
@@ -128,8 +129,8 @@ export const profileActions: ProfileAction = {
 					type: ActionType.PROFILE_FAIL,
 					payLoad: {
 						msg: err.response.statusText,
-						status: err.response.status,
-					},
+						status: err.response.status
+					}
 				});
 			}
 		};
@@ -140,7 +141,7 @@ export const profileActions: ProfileAction = {
 				const res = await profileApi.createEducation(education);
 				dispatch({
 					type: ActionType.GET_PROFILE,
-					payLoad: res.data,
+					payLoad: res.data
 				});
 
 				dispatch(alertActions.setAlert('Education Added!', 'success'));
@@ -161,8 +162,8 @@ export const profileActions: ProfileAction = {
 					type: ActionType.PROFILE_FAIL,
 					payLoad: {
 						msg: err.response.statusText,
-						status: err.response.status,
-					},
+						status: err.response.status
+					}
 				});
 			}
 		};
@@ -173,7 +174,7 @@ export const profileActions: ProfileAction = {
 				const res = await profileApi.createExperience(experience);
 				dispatch({
 					type: ActionType.GET_PROFILE,
-					payLoad: res.data,
+					payLoad: res.data
 				});
 
 				dispatch(alertActions.setAlert('Experience Added!', 'success'));
@@ -194,8 +195,8 @@ export const profileActions: ProfileAction = {
 					type: ActionType.PROFILE_FAIL,
 					payLoad: {
 						msg: err.response.statusText,
-						status: err.response.status,
-					},
+						status: err.response.status
+					}
 				});
 			}
 		};
@@ -206,7 +207,7 @@ export const profileActions: ProfileAction = {
 				const res = await profileApi.deleteExperience(id);
 				dispatch({
 					type: ActionType.GET_PROFILE,
-					payLoad: res.data,
+					payLoad: res.data
 				});
 
 				dispatch(alertActions.setAlert('Experience Deleted!', 'success'));
@@ -227,8 +228,8 @@ export const profileActions: ProfileAction = {
 					type: ActionType.PROFILE_FAIL,
 					payLoad: {
 						msg: err.response.statusText,
-						status: err.response.status,
-					},
+						status: err.response.status
+					}
 				});
 			}
 		};
@@ -239,7 +240,7 @@ export const profileActions: ProfileAction = {
 				const res = await profileApi.deleteEducation(id);
 				dispatch({
 					type: ActionType.GET_PROFILE,
-					payLoad: res.data,
+					payLoad: res.data
 				});
 
 				dispatch(alertActions.setAlert('Education Deleted!', 'success'));
@@ -260,8 +261,8 @@ export const profileActions: ProfileAction = {
 					type: ActionType.PROFILE_FAIL,
 					payLoad: {
 						msg: err.response.statusText,
-						status: err.response.status,
-					},
+						status: err.response.status
+					}
 				});
 			}
 		};
@@ -272,7 +273,7 @@ export const profileActions: ProfileAction = {
 				await profileApi.deleteProfile();
 				dispatch({
 					type: ActionType.DELETE_PROFILE,
-					payLoad: null,
+					payLoad: null
 				});
 				dispatch(authActions.logoutUser());
 				//@ts-ignore
@@ -290,4 +291,12 @@ export const profileActions: ProfileAction = {
 			}
 		};
 	},
+	clearProfile: () => {
+		return async (dispatch) => {
+			dispatch({
+				type: ActionType.CLEAR_PROFILE,
+				payLoad: null
+			});
+		};
+	}
 };

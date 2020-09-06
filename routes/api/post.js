@@ -4,7 +4,6 @@ const User = require('../../models/User');
 const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
 const e = require('express');
-const { json } = require('express');
 
 const router = express.Router();
 
@@ -55,7 +54,7 @@ router.get('/', auth, async (req, res) => {
 
 /**
  * route   GET api/post/:id
- * desc    Get list of posts
+ * desc    Get post
  * access  Private
  */
 router.get('/:id', auth, async (req, res) => {
@@ -65,9 +64,6 @@ router.get('/:id', auth, async (req, res) => {
 			return res.status(404).json({ msg: 'Post is not found' });
 		}
 
-		if (post.user.toString() !== req.user.id) {
-			return res.status(401).json({ msg: 'unauthorized user' });
-		}
 		return res.json(post);
 	} catch (err) {
 		if (err.kind === 'ObjectId') {

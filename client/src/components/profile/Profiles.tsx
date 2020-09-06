@@ -9,13 +9,9 @@ type TProfiles = {
 	profiles: Profile[];
 };
 const Profiles: React.FC<TProfiles> = ({ getProfiles, profiles }) => {
-  const [stateProfiles, setStateProfiles] = useState<Profile[]>([])
 	useEffect(() => {
-    getProfiles();
-  }, []);
-  useEffect(() => {
-    setStateProfiles(profiles);
-  }, [profiles])
+		getProfiles();
+	}, [getProfiles]);
 	return (
 		<section className="container">
 			<h1 className="large text-primary">Developers</h1>
@@ -23,7 +19,7 @@ const Profiles: React.FC<TProfiles> = ({ getProfiles, profiles }) => {
 				<i className="fab fa-connectdevelop" /> Browse and connect with developers
 			</p>
 			<div className="profiles">
-				{stateProfiles.map((profile) => {
+				{profiles.length && profiles.map((profile) => {
 					return (
 						<Fragment>
 							<div className="profile bg-light">
@@ -33,21 +29,21 @@ const Profiles: React.FC<TProfiles> = ({ getProfiles, profiles }) => {
 									<p>
 										{profile.status} at {profile.company}
 									</p>
-                  <p>{profile.location}</p>
+									<p>{profile.location}</p>
 									<Link to={`/user-profile/${profile.user._id}`} className="btn btn-primary">
 										View Profile
 									</Link>
 								</div>
 
 								<ul>
-                  {profile.skills.map((skill) => {
-                    return(
-                    <>
-		                  <li className="text-primary">
-										    <i className="fas fa-check" /> {skill}
-									    </li>
-                    </>)
-                  })}
+									{profile.skills.map((skill, i) => {
+										return (
+											<>
+												<li className="text-primary" key={i}>
+													<i className="fas fa-check" /> {skill}
+												</li>
+											</>)
+									})}
 								</ul>
 							</div>
 						</Fragment>

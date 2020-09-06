@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { alertActions, ActionMessage } from '../../actions/alert';
 import { authActions } from '../../actions/auth';
@@ -19,7 +19,7 @@ const Login: React.SFC<LoginProps> = (props) => {
 		email: yup.string().email('Please enter the correct email').required(),
 		password: yup.string().min(6).required(),
 	});
-	const { register, handleSubmit, errors } = useForm({
+	const { register, handleSubmit } = useForm({
 		defaultValues: {
 			email: '',
 			password: '',

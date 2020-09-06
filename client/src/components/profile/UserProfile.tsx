@@ -1,12 +1,10 @@
 import React, { useEffect, useState, Fragment } from 'react';
-import { connect } from 'react-redux';
 import { Github } from './Github';
 import { Education } from './Education';
 import { Experience } from './Experience';
 import { About } from './About';
 import { GeneralInfo } from './GeneralInfo';
 import { Profile } from '../../types/profile';
-import { profileActions } from '../../actions/profile';
 import { profileApi } from '../../api/profile';
 import { Link } from 'react-router-dom';
 
@@ -19,9 +17,8 @@ export const UserProfile: React.FC<TUserProfile> = ({ match }) => {
 	useEffect(() => {
 		//@ts-ignore
 		const profileId = match.params.id;
-		console.log(match);
 		getProfile(profileId);
-	}, []);
+	}, [match]);
 
 	const getProfile = async (profileId: unknown) => {
 		const profileRes = await profileApi.getProfileById(profileId);

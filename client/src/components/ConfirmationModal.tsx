@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 export enum DELETEType {
 	PROFILE = 'profile',
 	EXPERIENCE = 'experience',
-	EDUCATION = 'education',
+	EDUCATION = 'education'
 }
 
 export type TConfirmationModal = {
@@ -25,7 +25,7 @@ const ConfirmationModal: React.FC<TConfirmationModal> = ({
 	modalIsOpen,
 	deleteEducation,
 	deleteExperience,
-	deleteProfile,
+	deleteProfile
 }) => {
 	const [ isOpen, setIsOpen ] = useState(modalIsOpen);
 	const closeModal = () => {
@@ -45,14 +45,14 @@ const ConfirmationModal: React.FC<TConfirmationModal> = ({
 		}
 		closeModal();
 	};
-	useEffect(() => {
-		console.log(modalIsOpen)
+	useEffect(
+		() => {
 			setIsOpen(modalIsOpen);
 		},
-		[ modalIsOpen ],
+		[ modalIsOpen ]
 	);
 	return (
-		<Modal isOpen={isOpen}  onRequestClose={closeModal}>
+		<Modal isOpen={isOpen} onRequestClose={closeModal}>
 			<h2>Are you sure you want to delete your {type}?</h2>
 			{/* <button onClick={closeModal}>close</button> */}
 			<div className="btn-container">

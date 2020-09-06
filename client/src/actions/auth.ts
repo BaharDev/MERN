@@ -3,6 +3,7 @@ import { userApi } from './../api/auth';
 import { ActionType } from './actionType';
 import { setAuthToken } from '../api/config';
 import { tokenManager } from '../helpers/tokenManager';
+import { profileActions } from './profile';
 
 export type AuthAction = {
 	loadUser(): (dispatch) => Promise<void>;
@@ -29,8 +30,6 @@ export const authActions: AuthAction = {
 					payLoad: res.data,
 				});
 			} catch (err) {
-				console.log(err);
-
 				let errors: any[] = [];
 				if (err.response.data.errors) {
 					errors.push(err.response.data.errors);
@@ -72,12 +71,10 @@ export const authActions: AuthAction = {
 		return async (dispatch) => {
 			try {
 				const res = await userApi.login(email, password);
-				console.log(res);
 				dispatch({
 					type: ActionType.LOGIN_SUCCESS,
 					payLoad: res.data,
 				});
-				dispatch(authActions.loadUser());
 			} catch (err) {
 				let errors: any[] = [];
 				if (err.response.data.errors) {
@@ -100,10 +97,7 @@ export const authActions: AuthAction = {
 				type: ActionType.LOGOUT_SUCCESS,
 				payLoad: null,
 			});
-			dispatch({
-				type: ActionType.CLEAR_PROFILE,
-				payLoad: null,
-			});
+			dispatch(profileActions.clearProfile());
 		};
 	},
 };

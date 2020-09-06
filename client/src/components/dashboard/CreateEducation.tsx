@@ -52,15 +52,15 @@ const CreateEducation: React.FC<TCreateEducation> = (props) => {
 			<form className="form" onSubmit={handleSubmit(onHandleSubmit)}>
 				<div className="form-group">
 					<input type="text" placeholder="* School or Bootcamp" name="school" ref={register} />
-					{errors.school && <p className="error">{errors.school}</p>}
+					{errors.school && <p className="error">{errors.school.message}</p>}
 				</div>
 				<div className="form-group">
 					<input type="text" placeholder="* Degree or Certificate" name="degree" ref={register} />
-					{errors.degree && <p className="error">{errors.degree}</p>}
+					{errors.degree && <p className="error">{errors.degree.message}</p>}
 				</div>
 				<div className="form-group">
 					<input type="text" placeholder="* Field Of Study" name="fieldOfStudy" ref={register} />
-					{errors.fieldOfStudy && <p className="error">{errors.fieldOfStudy}</p>}
+					{errors.fieldOfStudy && <p className="error">{errors.fieldOfStudy.message}</p>}
 				</div>
 				<div className="form-group">
 					<h4>From Date</h4>

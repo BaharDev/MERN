@@ -1,8 +1,7 @@
 import React from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { authActions } from '../../actions/auth';
-import Dashboard from './../dashboard/Dashboard';
 
 export type NavbarProps = {
 	logoutUser(): Promise<void>;
@@ -29,12 +28,17 @@ const Navbar: React.SFC<NavbarProps> = (props) => {
 				{isAuthenticated ? (
 					<>
 					<li>
+						<Link to="/posts" title="Posts">
+						Posts
+					</Link>
+					</li>
+					<li>
 						<Link to="/dashboard" title="Dashboard">
 						Dashboard
 					</Link>
 					</li>
 					<li>
-						<a href="javascript:void(0);" onClick={onLoggingUserOut} style={{ cursor: 'pointer' }}>
+						<a href="#/" onClick={onLoggingUserOut} style={{ cursor: 'pointer' }}>
 							Logout
 						</a>
 					</li>

@@ -18,6 +18,8 @@ import CreateExperience from './components/dashboard/CreateExperience';
 import CreateEducation from './components/dashboard/CreateEducation';
 import Profiles from './components/profile/Profiles';
 import {UserProfile} from './components/profile/UserProfile';
+import Posts from './components/posts/Posts';
+import Post from './components/posts/Post';
 
 const App = () => {
 	const token = tokenManager.getToken();
@@ -39,6 +41,8 @@ const App = () => {
 							<Route exact path="/profiles" component={Profiles} />
 							<Route exact path="/user-profile/:id" component={UserProfile} />
 							<PrivateRoute exact path="/dashboard" component={Dashboard} />
+							<PrivateRoute exact path="/posts" component={Posts} />
+							<PrivateRoute exact path="/post/:id" component={Post} />
 							<PrivateRoute exact path="/create-profile" component={UpsertProfile} />
 							<PrivateRoute exact path="/edit-profile" component={UpsertProfile} />
 							<PrivateRoute exact path="/create-experience" component={CreateExperience} />

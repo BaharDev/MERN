@@ -16,7 +16,7 @@ export const Github: React.FC<TGithub> = ({ userName }) => {
 	const [ repos, setRepos ] = useState<Repos[]>([]);
 	useEffect(() => {
 		getRepos(userName);
-	}, []);
+	}, [userName]);
 
 	const getRepos = async (userName: string) => {
 		const reposRes = await profileApi.getRepos(userName);

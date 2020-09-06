@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, Redirect } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers';

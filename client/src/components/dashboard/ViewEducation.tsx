@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { Education } from '../../types/profile';
 import Moment from 'react-moment';
-import { useHistory } from 'react-router-dom';
 import ConfirmationModal, { DELETEType } from '../ConfirmationModal';
 
 export type TViewEducation = {
