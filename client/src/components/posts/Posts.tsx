@@ -27,47 +27,51 @@ const Posts: React.FC<Posts> = ({ posts, user, getPosts, likeOrUnlikePost, delet
 				<i className="fas fa-user" /> Welcome to the community!
 			</p>
 			<CreatePost />
-			<div className="posts">
-				{posts &&
-					posts.map((post) => {
-						return (
-							<div className="post bg-white p-1 my-1">
-								<div>
-									<Link to={`/post/${post._id}`}>
-										<img className="round-img" src={`${post.avatar}?s=200`} alt="" />
-										<h4>{post.name}</h4>
-									</Link>
-								</div>
-								<div>
-									<p className="my-1">{post.text}</p>
-									<p className="post-date">
-										Posted on <Moment format="YYYY/MM/DD">{post.date}</Moment>
-									</p>
-									<button
-										type="button"
-										className="btn btn-light"
-										onClick={(e) => likeOrUnlikePost(post._id)}
-									>
-										<i className="fas fa-thumbs-up" />
-										<span>{post.likes.length > 0 ? post.likes.length : ''}</span>
-									</button>
-									<Link to={`/post/${post._id}`} className="btn btn-primary">
-										Discussion <span className="comment-count">{post.comments.length}</span>
-									</Link>
-									{post.user === user._id && (
+			{!posts || posts.length === 0 ? (
+				<div>There is no posts.</div>
+			) : (
+				<div className="posts">
+					{posts &&
+						posts.map((post) => {
+							return (
+								<div className="post bg-white p-1 my-1">
+									<div>
+										<Link to={`/post/${post._id}`}>
+											<img className="round-img" src={`${post.avatar}?s=200`} alt="" />
+											<h4>{post.name}</h4>
+										</Link>
+									</div>
+									<div>
+										<p className="my-1">{post.text}</p>
+										<p className="post-date">
+											Posted on <Moment format="YYYY/MM/DD">{post.date}</Moment>
+										</p>
 										<button
 											type="button"
-											className="btn btn-danger"
-											onClick={(e) => deletePost(post._id)}
+											className="btn btn-light"
+											onClick={(e) => likeOrUnlikePost(post._id)}
 										>
-											<i className="fas fa-times" />
+											<i className="fas fa-thumbs-up" />
+											<span>{post.likes.length > 0 ? post.likes.length : ''}</span>
 										</button>
-									)}
+										<Link to={`/post/${post._id}`} className="btn btn-primary">
+											Discussion <span className="comment-count">{post.comments.length}</span>
+										</Link>
+										{post.user === user._id && (
+											<button
+												type="button"
+												className="btn btn-danger"
+												onClick={(e) => deletePost(post._id)}
+											>
+												<i className="fas fa-times" />
+											</button>
+										)}
+									</div>
 								</div>
-							</div>
-						);
-					})}
-			</div>
+							);
+						})}
+				</div>
+			)}
 		</section>
 	);
 };
