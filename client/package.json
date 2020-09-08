@@ -45,7 +45,7 @@
 	},
 	"scripts": {
 		"start": "react-scripts start",
-		"build": "webpack --mode production; tsc --project=tsconfig.json",
+		"build": "webpack --env.mode production",
 		"build:dev": "webpack --env.mode development",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
