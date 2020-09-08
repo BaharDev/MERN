@@ -15,7 +15,9 @@ module.exports = () => ({
   plugins: [
     new HtmlWebpackPlugin({
         hash: true,
-        filename: './index.html'
+        filename: './index.html',
+        template: './public/index.html'
+
     })
 ]
 });

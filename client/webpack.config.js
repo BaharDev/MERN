@@ -62,6 +62,9 @@ module.exports = ({ mode }) => {
       },
       plugins: [
         new CheckerPlugin(),
+        new MiniCssExtractPlugin({
+          filename: "css/main.css",
+        }),
         new webpack.optimize.AggressiveMergingPlugin(),
         new WebpackBar(),
       ],
