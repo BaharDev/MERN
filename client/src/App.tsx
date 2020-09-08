@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect } from 'react';
-import './App.css';
 import { Landing } from './components/layout/Landing';
 import Navbar from './components/layout/Navbar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -20,6 +19,7 @@ import Profiles from './components/profile/Profiles';
 import {UserProfile} from './components/profile/UserProfile';
 import Posts from './components/posts/Posts';
 import Post from './components/posts/Post';
+import './App.css';
 
 const App = () => {
 	const token = tokenManager.getToken();
