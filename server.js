@@ -4,8 +4,6 @@ const path = require("path");
 const app = express(); // run express
 db();//run db
 
-app.get("/", (req, res) => {res.send("app is running")});
-
 //Init middleware
 app.use(express.json({extended: false}));
 
@@ -17,12 +15,12 @@ app.use("/api/profile", require("./routes/api/profile"));
 
 //Serve statis assets in production
 if (process.env.NODE_ENV === "Production") {
-    app.use(express.static("client/build"));
+    app.use(express.static("client/build"),{ index: false });
 }
 
 app.get("*", (res, req) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-})
+});
 
 const port = process.env.port || 5000;
 
