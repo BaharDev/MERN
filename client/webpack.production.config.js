@@ -1,6 +1,7 @@
 const path = require("path");
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = () => ({
   mode: "production",
@@ -10,5 +11,11 @@ module.exports = () => ({
   },
   optimization: {
     minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
-  }
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+        hash: true,
+        filename: './index.html'
+    })
+]
 });
