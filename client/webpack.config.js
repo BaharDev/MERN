@@ -1,6 +1,6 @@
 const autoprefixer = require("autoprefixer");
 const webpack = require("webpack");
-const { merge } = require("webpack-merge");
+const  merge  = require("webpack-merge");
 const { CheckerPlugin } = require("awesome-typescript-loader");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const modeConfig = env => require(`./webpack.${env}.config.js`)(env);

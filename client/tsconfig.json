@@ -12,7 +12,7 @@
     "jsx": "react",
     "sourceMap": true,
     "noImplicitAny": false,
-    "module": "umd",
+    "module": "esnext",
     "lib": [
       "es6",
       "es7",
@@ -22,9 +22,11 @@
       "jest",
       "node"
     ],
-    "strict": true
+    "strict": true,
+    "resolveJsonModule": true
   },
   "include": [
-    "src", "webpack.production.config.js"
+    "src",
+    "webpack.production.config.js"
   ]
 }
