@@ -14,7 +14,7 @@ app.use("/api/auth", require("./routes/api/auth"));
 app.use("/api/profile", require("./routes/api/profile"));
 
 //Serve statis assets in production
-if (process.env.NODE_ENV === "Production") {
+if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
 }
 
