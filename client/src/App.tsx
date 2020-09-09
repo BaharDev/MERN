@@ -16,10 +16,10 @@ import UpsertProfile from './components/dashboard/UpsertProfile';
 import CreateExperience from './components/dashboard/CreateExperience';
 import CreateEducation from './components/dashboard/CreateEducation';
 import Profiles from './components/profile/Profiles';
-import {UserProfile} from './components/profile/UserProfile';
+import { UserProfile } from './components/profile/UserProfile';
 import Posts from './components/posts/Posts';
 import Post from './components/posts/Post';
-import './App.css';
+import './css/App.css';
 
 const App = () => {
 	const token = tokenManager.getToken();
@@ -35,6 +35,7 @@ const App = () => {
 					<Navbar />
 					<Route exact path="/" component={Landing} />
 					<div className="container">
+						<Alert />
 						<Switch>
 							<Route exact path="/login" component={Login} />
 							<Route exact path="/register" component={Register} />
@@ -48,7 +49,6 @@ const App = () => {
 							<PrivateRoute exact path="/create-experience" component={CreateExperience} />
 							<PrivateRoute exact path="/create-education" component={CreateEducation} />
 						</Switch>
-						<Alert />
 					</div>
 				</Fragment>
 			</Router>
